@@ -4,7 +4,7 @@ from sqlalchemy import Null, func
 import random
 
 
-# 1. 5 студентів із найбільшим середнім балом
+# 1. 5 student with the highest average grade
 def select_1():
     students = (
         session.query(
@@ -20,12 +20,12 @@ def select_1():
         .all()
     )
 
-    print("5 студентів із найбільшим середнім балом з усіх предметів:")
+    print("5 student with the highest average score:")
     for row in students:
         print(row)
 
 
-# 2. Студент із найвищим середнім балом з певного предмета
+# 2. the student with the highest average grade in particular subject
 def select_2(subject_name):
     student = (
         session.query(
@@ -45,11 +45,11 @@ def select_2(subject_name):
     )
 
     print(
-        f"Студент із найвищим середнім балом з предмета {subject_name}: {student[0].first_name} {student[0].last_name}"
+        f"Student with the highest score in the subject {subject_name}: {student[0].first_name} {student[0].last_name}"
     )
 
 
-# 3. Середній бал у групах з певного предмета
+# 3. Average score in groups in a particular subject
 def select_3(subject_name):
     groups = (
         session.query(
@@ -65,7 +65,7 @@ def select_3(subject_name):
         .all()
     )
 
-    print(f"Середній бал у групах з {subject_name} предмета:")
+    print(f"Average score in groups of {subject_name} subject:")
     for row in groups:
         print(row)
 
@@ -75,10 +75,10 @@ def select_4():
     avg_grade = session.query(
         func.round(func.avg(Grade.value), 1).label("avg_grade")
     ).scalar()
-    print(f"Середній бал на потоці (по всій таблиці оцінок): {avg_grade}")
+    print(f"Average score on stream (across the scoreboard): {avg_grade}")
 
 
-# 5. Які курси читає певний викладач
+# 5. What courses does a particular teacher teach
 def select_5(teacher_name):
     subjects = (
         session.query(Subject.title)
@@ -87,12 +87,12 @@ def select_5(teacher_name):
         .all()
     )
 
-    print(f"Які курси читає викладач {teacher_name}:")
+    print(f"What courses does the teacher teach {teacher_name}:")
     for row in subjects:
         print(row)
 
 
-# 6. Список студентів у певній групі
+# 6. List of students in a specific group
 def select_6(group_name):
     students = (
         session.query(Student.first_name, Student.last_name)
@@ -101,12 +101,12 @@ def select_6(group_name):
         .all()
     )
 
-    print(f"Список студентів у групі {group_name}:")
+    print(f"List of students in group {group_name}:")
     for row in students:
         print(row)
 
 
-# 7. Оцінки студентів у окремій групі з певного предмета
+# 7. Grades of students in a separate group in a particular subject
 def select_7(group_name, subject_name):
     students = (
         session.query(Student.first_name, Student.last_name, Grade.value)
@@ -119,12 +119,12 @@ def select_7(group_name, subject_name):
         .all()
     )
 
-    print(f"Оцінки студентів у {group_name} групі з {subject_name} предмета:")
+    print(f"Grades of students in {group_name} the group {subject_name} of the subject:")
     for row in students:
         print(row)
 
 
-# 8. Середній бал, який ставить певний викладач зі своїх предметів
+# 8. The average score given by a certain teacher in their subjects
 def select_8(teacher_name):
     avg_grade = (
         session.query(func.round(func.avg(Grade.value), 1).label("avg_grade"))
@@ -134,11 +134,11 @@ def select_8(teacher_name):
     )
 
     print(
-        f"Середній бал, який ставить {teacher_name} викладач зі своїх предметів: {avg_grade}"
+        f"Average score given by {teacher_name} teacher in their subjects: {avg_grade}"
     )
 
 
-# 9. Список курсів, які відвідує певний студент
+# 9. List of courses taken by a particular student
 def select_9(student_name):
     subjects = (
         session.query(Subject.title)
@@ -148,12 +148,12 @@ def select_9(student_name):
         .all()
     )
 
-    print(f"Список курсів, які відвідує {student_name} студент:")
+    print(f"List of courses attended by {student_name} student:")
     for row in subjects:
         print(row)
 
 
-# 10. Список курсів, які певному студенту читає певний викладач
+# 10. List of courses taught to a particular student by a particular teacher
 def select_10(student_name, teacher_name):
     subjects = (
         session.query(Subject.title)
@@ -165,7 +165,7 @@ def select_10(student_name, teacher_name):
         .all()
     )
 
-    print(f"Список курсів, які {student_name} студенту читає {teacher_name} викладач:")
+    print(f"List of courses that {student_name} student is taught by a {teacher_name} teacher:")
     for row in subjects:
         print(row)
 
